@@ -30,7 +30,7 @@ $(function() {
     };
 
     // getting data from JSON 
-    $.ajax('../data/page-1.json', ajaxSettings).then((data) => {
+    $.ajax('data/page-1.json', ajaxSettings).then((data) => {
         data.forEach((horn) => {
             let hornObject = new Horn(horn);
             horns.push(hornObject);
