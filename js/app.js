@@ -18,8 +18,6 @@ Horn.prototype.renderHorn = function() {
             <p>${this.description}</p>  
         </section>
     `);
-
-
 };
 
 $(function() {
