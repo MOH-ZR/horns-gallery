@@ -1,0 +1,41 @@
+@import url("https://fonts.googleapis.com/css2?family=Amatic+SC&display=swap");
+* {
+    font-family: 'Amatic SC', cursive !important;
+}
+
+body {
+    text-align: center;
+}
+
+header h1 {
+    font-size: 110px;
+}
+
+select,
+option {
+    font-family: Arial, Helvetica, sans-serif !important;
+}
+
+main {
+    margin: 0 auto;
+}
+
+section h2 {
+    font-size: 50px !important;
+    padding-bottom: 5px;
+}
+
+section img {
+    width: 95%;
+    border: 1px solid #a09e9e;
+    box-shadow: 2px 2px 3px 3px #a09e9e;
+}
+
+section p {
+    font-size: 30px;
+    padding-top: 5px;
+}
+
+footer {
+    font-size: 45px;
+}

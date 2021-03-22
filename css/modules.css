@@ -1,0 +1,10 @@
+section {
+    width: 180px;
+    height: 350px;
+    display: inline;
+    float: left;
+    overflow: visible;
+    margin-left: 50px;
+    margin-bottom: 100px;
+    margin-top: 25px;
+}

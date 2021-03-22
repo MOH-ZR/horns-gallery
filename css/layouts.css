@@ -1,0 +1,18 @@
+main {
+    overflow: hidden;
+    text-align: center;
+    width: 700px;
+}
+
+select {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-top: 10px;
+    border: 2px solid;
+    border-radius: 3px;
+}
+
+footer {
+    padding-top: 30px;
+    clear: left;
+}
