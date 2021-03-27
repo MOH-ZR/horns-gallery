@@ -4,6 +4,7 @@
 }
 
 body {
+    background-color: #f5d4f8;
     text-align: center;
 }
 
@@ -14,6 +15,7 @@ header h1 {
 select,
 option {
     font-family: Arial, Helvetica, sans-serif !important;
+    background-color: whitesmoke;
 }
 
 main {
@@ -21,18 +23,20 @@ main {
 }
 
 section h2 {
-    font-size: 50px !important;
+    font-size: 20px !important;
+    font-weight: bold;
     padding-bottom: 5px;
 }
 
 section img {
-    width: 95%;
+    width: 90%;
+    height: 50%;
     border: 1px solid #a09e9e;
     box-shadow: 2px 2px 3px 3px #a09e9e;
 }
 
 section p {
-    font-size: 30px;
+    font-size: 20px;
     padding-top: 5px;
 }
 

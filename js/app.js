@@ -1,70 +1,21 @@
 'use strict';
 
-let page1Horns = [];
-let page2Horns = [];
-let selectedPageName;
-let pageHorns = page1Horns;
-let Horn = function(horn) {
-    this.title = horn.title;
-    this.description = horn.description;
-    this.keyword = horn.keyword;
-    this.image_url = horn.image_url;
-    this.horns = horn.horns;
-}
-Horn.prototype.renderHorn = function() {
-    let template = $("#horn-template").html();
-    console.log(template);
-    let html = Mustache.render(template, this);
-    $("main").append(html);
-    // $('main').append(`
-    //     <section class="photo-template">
-    //         <h2>${this.title}</h2>
-    //         <img src="${this.image_url}" alt="">
-    //         <p>${this.description}</p>  
-    //     </section>
-    // `);
-};
-
 $(document).ready(function() {
-    renderPage('page-1');
-
-    // show the selected page
-    $("nav").on('click', (event) => {
-        event.preventDefault();
-
-        if ($(event.target).text() === 'page 1') {
-            selectedPageName = 'page 1';
-            page1Horns = [];
-            renderPage('page-1');
-            pageHorns = page1Horns;
-        } else if ($(event.target).text() === 'page 2') {
-            selectedPageName = 'page 2';
-            page2Horns = [];
-            renderPage('page-2');
-            pageHorns = page2Horns;
-        }
-    });
-
-    // filter the content based on the selected keyword
-    $('select').on('change', () => {
-        $('main').text("");
-        let selectedVal = $(this).find(':selected').val();
-        console.log(pageHorns.length);
-        pageHorns.forEach((horn) => {
-            if (selectedVal == 'default') {
-                (new Horn(horn)).renderHorn();
-            } else if (horn.keyword == selectedVal) {
-                (new Horn(horn)).renderHorn();
-            }
-        });
-    });
-
-});
-
-// render the selected page
-function renderPage(pageName) {
-    $('main').text("");
-    $('select').text("");
+    let allHorns1 = [];
+    let allHorns = [];
+    let keywords = [];
+    const Horn = function(horn) {
+        this.title = horn.title;
+        this.description = horn.description;
+        this.keyword = horn.keyword;
+        this.image_url = horn.image_url;
+        this.horns = horn.horns;
+    }
+    Horn.prototype.renderHorn = function() {
+        let template = $("#horn-template").html();
+        let html = Mustache.render(template, this);
+        $("main").append(html);
+    };
 
     // ajax setting 
     const ajaxSettings = {
@@ -72,24 +23,94 @@ function renderPage(pageName) {
         dataType: 'json',
     };
 
-    // getting data from JSON 
-    $.ajax(`data/${pageName}.json`, ajaxSettings).then((data) => {
-        data.forEach((horn) => {
-            let hornObject = new Horn(horn);
-            pageHorns.push(hornObject);
-            hornObject.renderHorn();
-        });
-        renderKeywords();
+    // show the selected page
+    $("button").on('click', function() {
+        readData($(this).attr('id'));
     });
-}
-// render the keywords list
-function renderKeywords() {
-    const tempArr = [];
-    $('select').append(`<option value="default">Filter by Keyword</option>`);
-    pageHorns.forEach((horn) => {
-        if (!tempArr.includes(horn.keyword)) {
-            tempArr.push(horn.keyword);
-            $('select').append(`<option value=${horn.keyword}>${horn.keyword}</option>`);
+
+    // filter the content based on the selected keyword
+    $('select').on('change', () => {
+        let selectedKeyword = $(this).find(':selected').val();
+        if (selectedKeyword == 'filter') {
+            allHorns = allHorns1;
+        } else {
+            filterHorns(selectedKeyword);
         }
+        renderPage();
     });
-}
+
+    // resort the horns based on change 
+    $('input[type=radio][name="sort"]').on('change', function() {
+        renderPage();
+    });
+
+    readData('1');
+    // filter horns
+    function filterHorns(keyword) {
+        const tempArr = [];
+        allHorns1.forEach((horn) => {
+            if (horn.keyword === keyword) {
+                tempArr.push(horn);
+            }
+        })
+        allHorns = tempArr;
+    }
+    // get the filtered keywords
+    function getKeywords() {
+        allHorns.forEach((horn) => {
+            if (!keywords.includes(horn.keyword)) {
+                keywords.push(horn.keyword);
+            }
+        });
+        renderKeyWords();
+    }
+
+    // sort horns
+    function sortHorns() {
+        const basedOn = $('input[name="sort"]:checked').val();
+        if (basedOn === 'title') {
+            allHorns.sort((horn1, horn2) => {
+                if (horn1.title < horn2.title) {
+                    return -1;
+                }
+                if (horn1.title > horn2.title) {
+                    return 1;
+                }
+                return 0;
+            });
+        } else if (basedOn === 'number') {
+            allHorns.sort((horn1, horn2) => {
+                return horn2.horns - horn1.horns;
+            });
+        }
+    }
+    // render the selected page
+    function renderPage() {
+        $('section').remove();
+        sortHorns();
+        allHorns.forEach(horn => horn.renderHorn());
+    }
+
+    // render keywords
+    function renderKeyWords() {
+        $('select').text("");
+        $('select').append('<option value=filter>Filter by Keyword</option>')
+        keywords.forEach(keyword => $('select').append(`<option value=${keyword}>${keyword}</option>`));
+    }
+
+    // read data from Ajax
+    function readData(pageNumber) {
+        allHorns = [];
+        keywords = [];
+        allHorns1 = [];
+        $.ajax(`data/page-${pageNumber}.json`, ajaxSettings).then((data) => {
+            data.forEach((horn) => {
+                const newHorn = new Horn(horn);
+                allHorns.push(newHorn);
+                allHorns1.push(newHorn);
+            });
+            getKeywords();
+            renderPage();
+        });
+    }
+});

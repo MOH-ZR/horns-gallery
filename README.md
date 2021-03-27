@@ -18,35 +18,35 @@ Actual time needed to complete: 150 minutes
 ```
 Number and name of feature: feature #2 - Templating
 
-Estimate of time needed to complete: minutes
+Estimate of time needed to complete: 30 minutes
 
-Start time: ()
+Start time: (5:00 pm)
 
-Finish time: ()
+Finish time: (6:05 pm)
 
-Actual time needed to complete:  minutes 
+Actual time needed to complete: 65 minutes 
 ```  
 
 ```
 Number and name of feature: feature #3 - Styling with Flexbox
 
-Estimate of time needed to complete: minutes
+Estimate of time needed to complete: 30 minutes
 
-Start time: ()
+Start time: (7:00 pm)
 
-Finish time: ()
+Finish time: (7:45 pm)
 
-Actual time needed to complete: minutes 
+Actual time needed to complete: 45 minutes 
 ```
 
 ```
 Number and name of feature: feature #3 - Sort the images
 
-Estimate of time needed to complete: minutes
+Estimate of time needed to complete: 90 minutes
 
-Start time: ()
+Start time: (8:00 pm)
 
-Finish time: ()
+Finish time: (10:10 pm)
 
-Actual time needed to complete: minutes 
+Actual time needed to complete:120 minutes 
 ```
